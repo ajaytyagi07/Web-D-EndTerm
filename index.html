@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Milao</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+  * {
+    outline: none;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  
+  :root {
+    --body-bg-color: #e5ecef;
+    --theme-bg-color: #fafafb;
+    --body-font: "Poppins", sans-serif;
+    --body-color: #2f2f33;
+    --active-color: #0162ff;
+    --active-light-color: #e1ebfb;
+    --header-bg-color: #fff;
+    --search-border-color: #efefef;
+    --border-color: #d8d8d8;
+    --alert-bg-color: #e8f2ff;
+    --subtitle-color: #83838e;
+    --inactive-color: #f0f0f0;
+    --placeholder-color: #9b9ba5;
+    --time-button: #fc5757;
+    --level-button: #5052d5;
+    --button-color: #fff;
+  }
+  
+  .dark-mode {
+    --body-bg-color: #1d1d1d;
+    --theme-bg-color: #13131a;
+    --header-bg-color: #1c1c24;
+    --alert-bg-color: #292932;
+    --body-color: #fff;
+    --inactive-color: #292932;
+    --time-button: #fff;
+    --level-button: #fff;
+    --active-light-color: #263d63;
+    --border-color: #26262f;
+    --search-border-color: #26262f;
+  }
+  
+  ::-webkit-input-placeholder {
+    color: var(--placeholder-color);
+  }
+  
+  :-ms-input-placeholder {
+    color: var(--placeholder-color);
+  }
+  
+  ::-ms-input-placeholder {
+    color: var(--placeholder-color);
+  }
+  
+  ::placeholder {
+    color: var(--placeholder-color);
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  html {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  body {
+    background-color: var(--body-bg-color);
+    font-family: var(--body-font);
+    font-size: 15px;
+    color: var(--body-color);
+  }
+  
+  .dark-light svg {
+    margin-right: 8px;
+    width: 22px;
+    cursor: pointer;
+    fill: transparent;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  .dark-mode .dark-light svg {
+    fill: #ffce45;
+    stroke: #ffce45;
+  }
+  
+  .dark-mode .job-card svg {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  
+  .dark-mode .search.item {
+    color: var(--body-color);
+    border-color: var(--body-color);
+  }
+  
+  .dark-mode .search-location svg,
+  .dark-mode .search-job svg,
+  .dark-mode .search-salary svg {
+    color: var(--body-color);
+  }
+  
+  .dark-mode .detail-button {
+    background-color: var(--inactive-color);
+    color: var(--subtitle-color);
+  }
+  
+  .job {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    max-width: 1400px;
+    height: 100vh;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: var(--theme-bg-color);
+  }
+  
+  .logo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .logo svg {
+    width: 24px;
+    margin-right: 12px;
+  }
+  
+  .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-transition: -webkit-box-shadow 0.3s;
+    transition: -webkit-box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, -webkit-box-shadow 0.3s;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    padding: 0 40px;
+    white-space: nowrap;
+    background-color: var(--header-bg-color);
+    height: 60px;
+    width: 100%;
+    font-size: 14px;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  
+  .header-menu a {
+    text-decoration: none;
+    color: var(--body-color);
+    font-weight: 500;
+  }
+  
+  .header-menu a:hover {
+    color: var(--active-color);
+  }
+  
+  .header-menu a:not(:first-child) {
+    margin-left: 30px;
+  }
+  
+  .header-menu a.active {
+    color: var(--active-color);
+  }
+  
+  .user-settings {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-weight: 500;
+  }
+  
+  .user-settings svg {
+    width: 20px;
+    color: #94949f;
+  }
+  
+  .user-menu {
+    position: relative;
+    margin-right: 8px;
+    padding-right: 8px;
+    border-right: 2px solid #d6d6db;
+  }
+  
+  .user-menu:before {
+    position: absolute;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 2px solid var(--header-bg-color);
+    right: 6px;
+    top: -1px;
+    background-color: var(--active-color);
+  }
+  
+  .user-profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .wrapper {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    scroll-behavior: smooth;
+    padding: 30px 40px;
+    overflow: auto;
+  }
+  
+  .search-menu {
+    height: 56px;
+    white-space: nowrap;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: var(--header-bg-color);
+    border-radius: 8px;
+    width: 100%;
+    padding-left: 20px;
+  }
+  
+  .search-menu div:not(:last-of-type) {
+    border-right: 1px solid var(--search-border-color);
+  }
+  
+  .search-bar {
+    height: 55px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: transparent;
+    border: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56.966 56.966' fill='%230162ff'%3e%3cpath d='M55.146 51.887L41.588 37.786A22.926 22.926 0 0046.984 23c0-12.682-10.318-23-23-23s-23 10.318-23 23 10.318 23 23 23c4.761 0 9.298-1.436 13.177-4.162l13.661 14.208c.571.593 1.339.92 2.162.92.779 0 1.518-.297 2.079-.837a3.004 3.004 0 00.083-4.242zM23.984 6c9.374 0 17 7.626 17 17s-7.626 17-17 17-17-7.626-17-17 7.626-17 17-17z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: 14px;
+    background-position: 0 50%;
+    padding: 0 25px 0 305px;
+  }
+  
+  .search-location,
+  .search-job,
+  .search-salary {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 50%;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 25px;
+    height: 100%;
+  }
+  
+  .search-location input,
+  .search-job input,
+  .search-salary input {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .search-location svg,
+  .search-job svg,
+  .search-salary svg {
+    margin-right: 8px;
+    width: 18px;
+    color: var(--active-color);
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+  }
+  
+  .search-button {
+    background-color: var(--active-color);
+    height: 55px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0 15px;
+    border-radius: 0 8px 8px 0;
+    color: var(--button-color);
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  .search.item {
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    font-size: 13px;
+    color: var(--active-color);
+    border: 1px solid var(--search-border-color);
+    padding: 8px 10px;
+    border-radius: 8px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .search.item svg {
+    width: 12px;
+    margin-left: 5px;
+  }
+  
+  .search.item:last-child {
+    left: 185px;
+  }
+  
+  .main-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    padding-top: 30px;
+  }
+  
+  .search-type {
+    width: 270px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: 100%;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+  }
+  
+  .alert {
+    background-color: var(--alert-bg-color);
+    padding: 24px 18px;
+    border-radius: 8px;
+  }
+  
+  .alert-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .alert-subtitle {
+    font-size: 13px;
+    color: var(--subtitle-color);
+    line-height: 1.6em;
+    margin-bottom: 20px;
+  }
+  
+  .alert input {
+    width: 100%;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+    background-color: var(--header-bg-color);
+    border: none;
+    font-size: 13px;
+  }
+  
+  .search-buttons {
+    border: none;
+    color: var(--button-color);
+    background-color: var(--active-color);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 14px;
+  }
+  
+  .job-wrapper {
+    padding-top: 20px;
+  }
+  
+  .job-time {
+    padding-top: 20px;
+  }
+  
+  .job-time-title {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .type-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: var(--subtitle-color);
+    font-size: 13px;
+  }
+  
+  .type-container label {
+    margin-left: 2px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    cursor: pointer;
+  }
+  
+  .type-container + .type-container {
+    margin-top: 10px;
+  }
+  
+  .job-number {
+    margin-left: auto;
+    background-color: var(--inactive-color);
+    color: var(--subtitle-color);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  .job-style {
+    display: none;
+  }
+  
+  .job-style + label:before {
+    content: "";
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--subtitle-color);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+      </style>
+  </head>
+  <body>
+     
+      <div class="container-fluid">
+         <!-- navbar -->
+         <div class="header">
+            <div class="logo">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path xmlns="http://www.w3.org/2000/svg" d="M512 503.5H381.7a48 48 0 01-45.3-32.1L265 268.1l-9-25.5 2.7-124.6L338.2 8.5l23.5 67.1L512 503.5z" fill="#0473ff" data-original="#28b446" />
+              <path xmlns="http://www.w3.org/2000/svg" fill="#0473ff" data-original="#219b38" d="M361.7 75.6L265 268.1l-9-25.5 2.7-124.6L338.2 8.5z" />
+              <path xmlns="http://www.w3.org/2000/svg" d="M338.2 8.5l-82.2 234-80.4 228.9a48 48 0 01-45.3 32.1H0l173.8-495h164.4z" fill="#0473ff" data-original="#518ef8" />
+             </svg>
+             Milao
+            </div>
+            <div class="header-menu">
+             <a href="#" class="active">Search Naukri</a>
+             <a href="#">Company Review</a>
+             <a href="#">Find Salaries</a>
+            </div>
+            <div class="user-settings">
+             <div class="dark-light">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+               <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
+             </div>
+             <div class="user-menu">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-square">
+               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" /></svg>
+             </div>
+             <img class="user-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png" alt="">
+             <div class="user-name">John Doe</div>
+            </div>
+           </div>
+          <!-- navbarend -->
+          <div class="row">
+              <div class="col-2">
+                  <h5>Types of Employement</h5>
+                  <ul class="list-group no-border mb-3">
+                    <li class="list-group-item border-0">
+                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                      Full Time Jobs
+                    </li>
+                    <li class="list-group-item border-0">
+                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                       Part Time Jobs
+                    </li>
+                    <li class="list-group-item border-0">
+                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                      Remote Jobs
+                    </li>
+                    <li class="list-group-item border-0">
+                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                      Internship Jobs
+                    </li>
+                    <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                       Contract
+                      </li>
+                    <li class="list-group-item border-0">
+                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                     Training Jobs
+                    </li>
+                  </ul>
+                 
+              </div>
+              <div class="col-10">
+                  <div class="row">
+                      <div class="col-3">
+                        <div class="card" style="width: 15rem;">
+                            <img src="https://cdn.pixabay.com/photo/2017/08/22/11/56/linked-in-2668696_960_720.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">UI/UX Designer</h5>
+                              <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                              <button type="button" class="btn btn-primary">Apply now</button>
+                              <button type="button" class="btn btn-light">Messages</button>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-3"><div class="card" style="width: 15rem;">
+                        <img src="https://cdn.pixabay.com/photo/2014/04/02/10/56/telephone-304968__340.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Product Designer</h5>
+                          <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                          <button type="button" class="btn btn-primary">Apply now</button>
+                          <button type="button" class="btn btn-light">Messages</button>
+                        </div>
+                      </div></div>
+                      <div class="col-3"><div class="card" style="width: 15rem;">
+                        <img src="https://cdn.pixabay.com/photo/2013/07/12/15/53/globe-150498__340.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">UX Designer</h5>
+                          <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                          <button type="button" class="btn btn-primary">Apply now</button>
+                          <button type="button" class="btn btn-light">Messages</button>
+                        </div>
+                      </div></div>
+                      <div class="col-3 "><div class="card" style="width: 15rem;">
+                        <img src="https://cdn.pixabay.com/photo/2015/04/12/16/43/rss-719089__340.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">User Experience Designer</h5>
+                          <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                          <button type="button" class="btn btn-primary">Apply now</button>
+                          <button type="button" class="btn btn-light">Messages</button>
+                        </div>
+                      </div></div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+                <h5 class="fw-bold">Seniority Level</h5>
+                <ul class="list-group no-border">
+                  <li class="list-group-item border-0">
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                   Student Level
+                  </li>
+                  <li class="list-group-item border-0">
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                    Entry Level
+                  </li>
+                  <li class="list-group-item border-0">
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                    Mid Level
+                  </li>
+                  <li class="list-group-item border-0">
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                   Senior Level
+                  </li>
+                  <li class="list-group-item border-0">
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                  Directors
+                  </li>
+                  <li class="list-group-item border-0">
+                    <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                   Vp or Above
+                  </li>
+                </ul>
+               
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3">
+                      <div class="card mb-3" style="width: 15rem;">
+                          <img src="https://png.pngtree.com/element_our/20190528/ourlarge/pngtree-twitter-free-button-png-image-image_1144413.jpg" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">Senior Product Desinger</h5>
+                            <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                            <button type="button" class="btn btn-primary">Apply now</button>
+                            <button type="button" class="btn btn-light">Messages</button>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-3 mb-3"><div class="card" style="width: 15rem;">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY4nVjNclsU21J8Cr_I2w0V1zywQMCWqWDelFeAM_zNlNoP-E6Z3S-MRSqjYvv292f9PQ&usqp=CAU" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Senior Product Desinger</h5>
+                        <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae<p>
+                        <button type="button" class="btn btn-primary">Apply now</button>
+                        <button type="button" class="btn btn-light">Messages</button>
+                      </div>
+                    </div></div>
+                    <div class="col-3 mb-3"><div class="card" style="width: 15rem;">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSBtY4hgXPgMz58JCxoSLa2inzUIM3LWAQyw&usqp=CAU" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">User Experience Designer</h5>
+                        <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                        <button type="button" class="btn btn-primary">Apply now</button>
+                        <button type="button" class="btn btn-light">Messages</button>
+                      </div>
+                    </div></div>
+                    <div class="col-3 mb-3"><div class="card" style="width: 15rem;">
+                      <img src="https://cdn.pixabay.com/photo/2017/08/23/22/59/linked-in-2674741__340.png" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">UI/UX Designer</h5>
+                        <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                        <button type="button" class="btn btn-primary">Apply nowy</button>
+                        <button type="button" class="btn btn-light">Messages</button>
+                      </div>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h5>Salary Range</h5>
+                    <li class="list-group-item border-0">
+                       <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $700-$1000
+                      </li>
+                    <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $1000-$1200
+                      </li>
+                      <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $1200-$1400
+                      </li>
+                      <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $1400-$1600
+                      </li>
+                      <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $1600-$1800
+                      </li>
+                      <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $1800-$2000
+                      </li>
+                      <li class="list-group-item border-0">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        $2000-$2200
+                      </li>
+                    
+            </div>
+            <div class="col-10 mb-3">
+                <div class="row">
+                    <div class="col-3">
+                      <div class="card" style="width: 15rem;">
+                          <img src="https://cdn.pixabay.com/photo/2020/11/19/15/23/icon-5758868__340.png" class="card-img-top" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-title">Dennis Lingo</h5>
+                            <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                            <button type="button" class="btn btn-primary">Apply now</button>
+                            <button type="button" class="btn btn-light">Messages</button>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-3"><div class="card" style="width: 15rem;">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSBtY4hgXPgMz58JCxoSLa2inzUIM3LWAQyw&usqp=CAU" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Highlander</h5>
+                        <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                        <button type="button" class="btn btn-primary">Apply now</button>
+                        <button type="button" class="btn btn-light">Messages</button>
+                      </div>
+                    </div></div>
+                    <div class="col-3"><div class="card" style="width: 15rem;">
+                      <img src="https://cdn.pixabay.com/photo/2013/07/12/15/53/globe-150498__340.png" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Indian Garage Co</h5>
+                        <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                     <button type="button" class="btn btn-primary">Apply now</button>
+                     <button type="button" class="btn btn-light">Messages</button>
+                      </div>
+                    </div></div>
+                    <div class="col-3"><div class="card" style="width: 15rem;">
+                      <img src="https://cdn.pixabay.com/photo/2015/04/12/16/43/rss-719089__340.png" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Highlander</h5>
+                        <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae</p>
+                        <button type="button" class="btn btn-primary">Apply now</button>
+                        <button type="button" class="btn btn-light">Messages</button>
+                      </div>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+           
+        
+  </body>
+</html>
